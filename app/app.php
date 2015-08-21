@@ -4,21 +4,18 @@
     require_once __DIR__."/../src/Stylist.php";
     require_once __DIR__."/../src/Client.php";
     
-    use Symfony\Component\Debug\Debug;
-    Debug::enable();
-    
-    use Symfony\Component\HttpFoundation\Request;
-    Request::enableHttpMethodParameterOverride();
     
     $app = new Silex\Application();
-    
-    $app['debug']=true;
+
+    $server
+     $server = 'mysql:host=localhost;dbname=hair_salon';
+    $username = 'root';
+    $password = 'root';
+    $DB = new PDO($server, $username, $password);
     
     $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views'
     ));
-    
-    $DB = new PDO('pgsql:host=localhost;dbname=hair_salon');
     
     $app->get("/", function() use ($app) {
         return $app['twig']->render('stylists.html.twig', array('stylists' => Stylist::getAll()));
@@ -40,7 +37,7 @@
     {
         $new_client_name = $_POST['client_name'];
         $stylist_id = $_POST['stylist_id'];
-        $client = new Client($id=null, $new_client_name, $stylist_id);
+        $client = new Client($id = null, $stylist_id);
         $client->save();
         $stylist = Stylist::find($stylist_id);
         return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist, 'clients' => $stylist->getClients()));

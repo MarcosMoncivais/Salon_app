@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <title>Epicodus Saloon</title>
+    </head>
+    <body>
+        <div class="container">
+
+            <h1>Epicodus</h1>
+            <h2>Epicodus Hair Stylists</h2>
+
+            {% if stylists is not empty %}
+                <p>Our Stylists:</p>
+                <ul>
+                    {% for stylist in stylists %}
+                        <li><a href="/stylists/{{ stylist.getId }}">{{ stylist.getStylistName }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <form action="/stylists" method="post">
+                <div class="form-group">
+                    <label for="stylist_name">Add a new stylist:</label>
+                    <input type="text" name="stylist_name" id="stylist_name" class="form-control">
+                </div>
+                <button type="submit">Add Stylist</button>
+            </form>
+
+        </div>
+    </body>
+</html>
