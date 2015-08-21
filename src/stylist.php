@@ -39,13 +39,13 @@
 
 		static function getAll()
 		{
-			$statement = GLOBALS['DB']->query("SELECT * FROM stylists;");
-			$stylists = array()
-			foreach ($returned_stylists as $stylist) {
-				$name = $stylist['name'];
-				$id = $stylist['id'];
-				$new_stylist = new Stylist($name, $id);
-				array_push($stylists, $new_stylist);
+			$db_stylists = $GLOBALS['DB']->query("SELECT * FROM stylists;");
+            $stylists = array();
+            foreach ($db_stylists as $stylist) {
+                $name = $stylist['name'];
+                $id = $stylist['id'];
+                $new_stylist = new Stylist($name, $id);
+                array_push($stylists, $new_stylist);
 			}
 			return $stylists;
 		}
@@ -64,8 +64,9 @@
 				if (stylist_id == $search_id) {
 					$found_stylist = $stylist;
 				}
+				return $found_stylist;
 			}
-			return $found_stylist;
+			
 		}
 
 		function update($new_name)
